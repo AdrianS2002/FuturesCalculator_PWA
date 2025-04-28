@@ -4,23 +4,44 @@ import { TargetPriceComponent } from "../target-price/target-price.component";
 import { LiquidationPriceComponent } from "../liquidation-price/liquidation-price.component";
 import { MaxOpenComponent } from "../max-open/max-open.component";
 import { OpenPriceComponent } from "../open-price/open-price.component";
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { PairPriceService } from '../services/pairPrice.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-calculator',
   standalone: true,
-  imports: [ProfitLossComponent, TargetPriceComponent, LiquidationPriceComponent, MaxOpenComponent, OpenPriceComponent, NgIf],
+  imports: [ProfitLossComponent, TargetPriceComponent, LiquidationPriceComponent, MaxOpenComponent, OpenPriceComponent, NgIf, FormsModule, NgFor],
   templateUrl: './calculator.component.html',
   styleUrl: './calculator.component.css'
 })
 export class CalculatorComponent {
   menuOpen: boolean = false;
   activeTab: 'profit-loss' | 'target-price' | 'liquidation-price' | 'max-open' | 'open-price' = 'profit-loss';
+   tradingPairs: string[] = []; 
+  selectedPair: string = 'BTCUSDT'
+
 
   selectTab(tab: 'profit-loss' | 'target-price' | 'liquidation-price' | 'max-open' | 'open-price') {
     this.activeTab = tab;
     this.menuOpen = false;
   }
+
+  constructor(private pairPriceService: PairPriceService) {
+  }
+
+  ngOnInit(){
+    this.pairPriceService.getTradingPairs().subscribe({
+      next: (pairs) => {
+        this.tradingPairs = pairs;
+        console.log(this.tradingPairs);
+      },
+      error: (error) => console.error('Error fetching trading pairs:', error)
+    });
+      
+  };
+
+  
 
   get activeTabTitle(): string {
     switch (this.activeTab) {
@@ -32,7 +53,7 @@ export class CalculatorComponent {
       default: return '';
     }
   }
-  
+
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
