@@ -8,6 +8,7 @@ import { map, Observable } from "rxjs";
 
 export class PairPriceService {
     private apiUrl = 'https://api.binance.com/api/v3/exchangeInfo';
+    private tickerPriceUrl = 'https://api.binance.com/api/v3/ticker/price';
     constructor(private http: HttpClient) {}
 
     getTradingPairs(): Observable<string[]> {
@@ -17,6 +18,12 @@ export class PairPriceService {
                 const tradingPairs = symbols.map((symbol: any) => symbol.symbol);
                 return tradingPairs;
             })
+        );
+    }
+
+    getCurrentPrice(symbol: string): Observable<number> {
+        return this.http.get<any>(`${this.tickerPriceUrl}?symbol=${symbol}`).pipe(
+            map((response: any) => parseFloat(response.price))
         );
     }
 }

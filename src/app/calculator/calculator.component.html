@@ -37,7 +37,7 @@
 </div>
 
 <div class="calculator-body">
-    <app-profit-loss *ngIf="activeTab === 'profit-loss'"></app-profit-loss>
+    <app-profit-loss *ngIf="activeTab === 'profit-loss'" [selectedPair]="selectedPair"></app-profit-loss>
     <app-target-price *ngIf="activeTab === 'target-price'"></app-target-price>
     <app-liquidation-price *ngIf="activeTab === 'liquidation-price'"></app-liquidation-price>
     <app-max-open *ngIf="activeTab === 'max-open'"></app-max-open>

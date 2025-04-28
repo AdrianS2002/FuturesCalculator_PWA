@@ -1,1 +1,54 @@
-<p>profit-loss works!</p>
+<div class="pnl-container">
+
+
+    <div class="position-toggle">
+      <button [class.active-long]="isLong" (click)="selectPosition('long')">Long</button>
+      <button [class.active-short]="!isLong" (click)="selectPosition('short')">Short</button>
+    </div>
+  
+
+    <div class="leverage-section">
+        <label>Leverage: {{ leverage }}x</label>
+        <input type="range" min="1" max="125" [(ngModel)]="leverage" class="leverage-slider">
+      </div>
+  
+
+      <div class="input-group">
+        <input type="number" placeholder="Entry Price" [(ngModel)]="entryPrice">
+        <button class="get-price-btn" (click)="getPrice('entry')">Get</button>
+        <span class="unit">USDT</span>
+      </div>
+   
+    <div class="input-group">
+      <input type="number" placeholder="Exit Price" [(ngModel)]="exitPrice">
+      <span class="unit">USDT</span>
+    </div>
+  
+  
+    <div class="input-group">
+      <input type="number" placeholder="Quantity" [(ngModel)]="quantity">
+      <span class="unit">BTC</span>
+    </div>
+  
+   
+    <button class="calculate-btn" (click)="calculatePnL()">Calculate</button>
+  
+
+    <div class="results" *ngIf="profitLoss !== null && initialMargin !== null && roi !== null">
+        <h3>Results</h3>
+        <div class="result-line">
+          <span>Initial Margin</span>
+          <span>{{ initialMargin }} USDT</span>
+        </div>
+        <div class="result-line">
+          <span>PnL</span>
+          <span>{{ profitLoss }} USDT</span>
+        </div>
+        <div class="result-line">
+          <span>ROI</span>
+          <span>{{ roi }} %</span>
+        </div>
+      </div>
+  
+  </div>
+  
