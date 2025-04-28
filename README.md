@@ -1,28 +1,48 @@
-# FuturesCalculator
+# 🚀 Crypto Futures Calculator
+Live at :  https://futures-calculator-pwa.vercel.app/
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+This project is an **Angular Standalone** application designed for fast and accurate calculation of:
 
-## Development server
+- **Profit & Loss (PnL)**
+- **Initial Margin**
+- **Return on Investment (ROI)**
+- **Liquidity Price**
+- **Maximum Open Position**
+- **Target Price**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Inspired by professional platforms like **Binance Futures**.
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## ✨ Current Features
 
-## Build
+- Dynamic crypto pair selection via Binance API.
+- PnL calculation based on Entry Price, Exit Price, Quantity, and Leverage.
+- Support for both **Long** and **Short** trading positions.
+- Fetch live **current price** directly from Binance API using a simple **Get** button.
+- Calculation modules for:
+  - **Liquidity Price**
+  - **Max Open Position**
+  - **Target Price**
+- Fully **Responsive Design** optimized for mobile and tablet devices.
+- Modern **Dark Theme** with easily configurable CSS variables.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Running unit tests
+## 🛠️ Tech Stack
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Angular Standalone Components** (without classic Modules)
+- **RxJS** for asynchronous API calls
+- **HTTPClient** for integration with Binance Public API
+- **FormsModule**, **NgIf**, and **NgFor** for reactive forms and dynamic rendering
+- **CSS Variables** for easy and flexible theming
+- **Mobile-First Responsive Design** using media queries
 
-## Running end-to-end tests
+---
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 🔧 How to Run Locally
 
-## Further help
+1. Clone the repository:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-# FuturesCalculator_PWA
+```bash
+git clone https://github.com/user/crypto-futures-calculator.git
