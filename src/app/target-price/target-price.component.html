@@ -1,1 +1,37 @@
-<p>target-price works!</p>
+<div class="targetPrice-conteiner">
+    <div class="position-toggle">
+        <button [class.active-long]="isLong" (click)="selectPosition('long')">Long</button>
+        <button [class.active-short]="!isLong" (click)="selectPosition('short')">Short</button>
+    </div>
+
+
+    <div class="leverage-section">
+        <label>Leverage: {{ leverage }}x</label>
+        <input type="range" min="1" max="125" [(ngModel)]="leverage" class="leverage-slider">
+    </div>
+
+
+    <div class="input-group">
+        <input type="number" placeholder="Entry Price" [(ngModel)]="entryPrice">
+        <button class="get-price-btn" (click)="getPrice('entry')">Get</button>
+        <span class="unit">USDT</span>
+    </div>
+
+    <div class="input-group">
+        <input type="number" placeholder="ROI" [(ngModel)]="roi">
+        <span class="unit">%</span>
+    </div>
+
+    <button class="calculate-btn" (click)="calculateTarget()">Calculate</button>
+
+    <div class="results" *ngIf="roi !== null">
+        <h3>Results</h3>
+        <div class="result-line">
+            <span>Target Price</span>
+            <span>{{ targetPrice }} USDT</span>
+        </div>
+
+    </div>
+
+
+</div>
