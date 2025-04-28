@@ -38,11 +38,3 @@ Inspired by professional platforms like **Binance Futures**.
 - **CSS Variables** for easy and flexible theming
 - **Mobile-First Responsive Design** using media queries
 
----
-
-## 🔧 How to Run Locally
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/user/crypto-futures-calculator.git
