@@ -1,1 +1,41 @@
-<p>max-open works!</p>
+<div class="maxOpen-conteiner">
+    <div class="position-toggle">
+        <button [class.active-long]="isLong" (click)="selectPosition('long')">Long</button>
+        <button [class.active-short]="!isLong" (click)="selectPosition('short')">Short</button>
+    </div>
+
+
+    <div class="leverage-section">
+        <label>Leverage: {{ leverage }}x</label>
+        <input type="range" min="1" max="125" [(ngModel)]="leverage" class="leverage-slider">
+    </div>
+
+
+    <div class="input-group">
+        <input type="number" placeholder="Entry Price" [(ngModel)]="entryPrice">
+        <button class="get-price-btn" (click)="getPrice('entry')">Get</button>
+        <span class="unit">USDT</span>
+    </div>
+
+    <div class="input-group">
+        <input type="number" placeholder="Balance" [(ngModel)]="balance">
+        <span class="unit">%</span>
+    </div>
+
+    <button class="calculate-btn" (click)="calculateMaxOpen()">Calculate</button>
+
+    <div class="results" *ngIf="balance !== null">
+        <h3>Results</h3>
+        <div class="result-line">
+            <span>Max Open</span>
+            <span>{{ maxOpenUSDT }} USDT</span>
+        </div>
+        <div class="result-line">
+            <span>Max Open</span>
+            <span>{{ maxOpenBTC }} BTC</span>
+        </div>
+
+    </div>
+
+
+</div>
