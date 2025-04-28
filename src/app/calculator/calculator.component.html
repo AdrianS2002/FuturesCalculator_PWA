@@ -1,20 +1,37 @@
-<div class="Select Pair">
-    
-</div>
-<div class="tabs">
-    <button (click)="selectTab('profit-loss')">Profit & Loss</button>
-    <button (click)="selectTab('target-price')">Target Price</button>
-    <button (click)="selectTab('liquidation-price')">Liquidation Price</button>
-    <button (click)="selectTab('max-open')">Max Open</button>
-    <button (click)="selectTab('open-price')">Open Price</button>
-</div>
+<div class="select-pair">
+   
+  </div>
   
+  <div class="header">
+    <div class="hamburger" (click)="toggleMenu()">
+      &#9776;
+    </div>
+    <div class="active-tab-title">
+      {{ activeTabTitle }}
+    </div>
+  </div>
+
+  <div class="tabs" >
+    <button (click)="selectTab('profit-loss')" [class.active]="activeTab === 'profit-loss'">Profit & Loss</button>
+    <button (click)="selectTab('target-price')" [class.active]="activeTab === 'target-price'">Target Price</button>
+    <button (click)="selectTab('liquidation-price')" [class.active]="activeTab === 'liquidation-price'">Liquidation Price</button>
+    <button (click)="selectTab('max-open')" [class.active]="activeTab === 'max-open'">Max Open</button>
+    <button (click)="selectTab('open-price')" [class.active]="activeTab === 'open-price'">Open Price</button>
+  </div>
+
+  <div class="tabs-mobile" [class.open]="menuOpen">
+    <button (click)="selectTab('profit-loss')" [class.active]="activeTab === 'profit-loss'">Profit & Loss</button>
+    <button (click)="selectTab('target-price')" [class.active]="activeTab === 'target-price'">Target Price</button>
+    <button (click)="selectTab('liquidation-price')" [class.active]="activeTab === 'liquidation-price'">Liquidation Price</button>
+    <button (click)="selectTab('max-open')" [class.active]="activeTab === 'max-open'">Max Open</button>
+    <button (click)="selectTab('open-price')" [class.active]="activeTab === 'open-price'">Open Price</button>
+  </div>
+
   <div class="calculator-body">
     <app-profit-loss *ngIf="activeTab === 'profit-loss'"></app-profit-loss>
     <app-target-price *ngIf="activeTab === 'target-price'"></app-target-price>
     <app-liquidation-price *ngIf="activeTab === 'liquidation-price'"></app-liquidation-price>
     <app-max-open *ngIf="activeTab === 'max-open'"></app-max-open>
     <app-open-price *ngIf="activeTab === 'open-price'"></app-open-price>
-
   </div>
   

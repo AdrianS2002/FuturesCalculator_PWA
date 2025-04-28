@@ -1,1 +1,172 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+
+    --background-color: #121212;
+    --tab-background: #4e4e4e;
+    --tab-hover-bg: #ffd700;
+    --tab-text-color: #bbb;
+    --tab-active-text-color: #000;
+    --tab-hover-text-color: #000;
+    --calculator-text-color: #fff;
+    --border-color: #333;
+    --font-family: 'Roboto', sans-serif;
+}
+
+.tabs-mobile {
+    display: none;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: var(--font-family);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: var(--tab-background);
+    border-bottom: 1px solid var(--border-color);
+    display: none;
+}
+
+.select-pair {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.hamburger {
+    font-size: 30px;
+    color: var(--tab-text-color);
+    cursor: pointer;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: var(--tab-background);
+    padding: 10px 0;
+    gap: 8px;
+    border-bottom: 1px solid var(--border-color);
+    transition: max-height 0.3s ease;
+}
+
+
+.tabs button {
+    background-color: transparent;
+    color: var(--tab-text-color);
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+
+.tabs button:hover,
+.tabs button.active {
+    background-color: var(--tab-hover-bg);
+    color: var(--tab-hover-text-color);
+    font-weight: bold;
+}
+
+
+.active-tab-title {
+ 
+    display: none;
+}
+
+
+.calculator-body {
+    background-color: var(--background-color);
+    padding: 30px 20px;
+    min-height: 100vh;
+    color: var(--calculator-text-color);
+    font-family: var(--font-family);
+    border-top: none;
+}
+
+
+.select-pair {
+    text-align: center;
+    margin: 20px 0;
+}
+
+
+@media (max-width: 768px) {
+    .tabs{
+        display: none;
+    }
+    .tabs-mobile {
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        background-color: var(--tab-background);
+        border-bottom: 1px solid var(--border-color);
+        width: 100%;
+    }
+
+    .active-tab-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--tab-text-color);
+        
+    }
+
+    .tabs-mobile.open {
+        display: flex;
+        max-height: 500px;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .tabs-mobile button {
+        background-color: transparent;
+        color: var(--tab-text-color);
+        border: none;
+        padding: 15px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        text-align: center;
+    }
+
+    .tabs-mobile button.active {
+        background-color: var(--tab-hover-bg);
+        color: var(--tab-active-text-color);
+        font-weight: bold;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background-color: var(--tab-background);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .active-tab-title {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--tab-text-color);
+    }
+
+    .calculator-body {
+        padding: 20px 10px;
+    }
+}
