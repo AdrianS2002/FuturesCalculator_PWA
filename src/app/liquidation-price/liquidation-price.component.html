@@ -1,1 +1,90 @@
-<p>liquidation-price works!</p>
+<div class="liquidationPrice-container">
+    <div class="mode-toggle">
+
+        <h4>Cross</h4>
+
+        <select [(ngModel)]="mode" class="mode-select">
+            <option value="one-way">One-way Mode</option>
+            <option value="hedge">Hedge Mode</option>
+        </select>
+    </div>
+
+    <div class="leverage-section">
+        <label>Leverage: {{ leverage }}x</label>
+        <input type="range" min="1" max="125" [(ngModel)]="leverage" class="leverage-slider">
+    </div>
+
+    <ng-container *ngIf="mode === 'one-way'">
+        <div class="position-toggle">
+            <button [class.active-long]="isLong" (click)="selectPosition('long')">Long</button>
+            <button [class.active-short]="!isLong" (click)="selectPosition('short')">Short</button>
+        </div>
+
+        <div class="position-block">
+            <div class="input-group">
+                <input type="number" placeholder="Entry Price" [(ngModel)]="selectedEntry">
+                <button class="get-price-btn" (click)="getPrice('entry')">Get</button>
+                <span class="unit">{{ baseCurrency }}</span>
+            </div>
+            <div class="input-group">
+                <input type="number" placeholder="Quantity" [(ngModel)]="selectedQuantity">
+                <span class="unit">{{ quoteCurrency }}</span>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="mode === 'hedge'">
+        <div class="position-block">
+            <h4 class="long-label">Long</h4>
+            <div class="input-group">
+                <input type="number" placeholder="Entry Price" [(ngModel)]="longEntry">
+                <button class="get-price-btn" (click)="getPrice('entry')">Get</button>
+                <span class="unit">{{ baseCurrency }}</span>
+            </div>
+            <div class="input-group">
+                <input type="number" placeholder="Quantity" [(ngModel)]="longQuantity">
+                <span class="unit">{{  quoteCurrency }}</span>
+            </div>
+        </div>
+
+        <div class="position-block">
+            <h4 class="short-label">Short</h4>
+            <div class="input-group">
+                <input type="number" placeholder="Entry Price" [(ngModel)]="shortEntry">
+                <button class="get-price-btn" (click)="getPrice('entry')">Get</button>
+                <span class="unit">{{  baseCurrency}}</span>
+            </div>
+            <div class="input-group">
+                <input type="number" placeholder="Quantity" [(ngModel)]="shortQuantity">
+                <span class="unit">{{ quoteCurrency }}</span>
+            </div>
+        </div>
+    </ng-container>
+
+    <div class="input-group">
+        <input type="number" placeholder="Balance" [(ngModel)]="balance">
+        <span class="unit">{{ quoteCurrency }}</span>
+    </div>
+
+    <button class="calculate-btn" (click)="calculateLiquidation()">Calculate</button>
+
+    <div class="results" *ngIf="liquidationPrice !== null">
+        <h3>Result</h3>
+        <div *ngIf="mode == 'one-way'">
+            <div class="result-line">
+                <span>Liquidation Price</span>
+                <span>{{ liquidationPrice | number: '1.2-8' }} {{ quoteCurrency }}</span>
+            </div>
+        </div>
+        <div *ngIf="mode === 'hedge'">
+            <div class="result-line">
+              <span>Long Liquidation Price</span>
+              <span>{{ liqLong | number: '1.2-8' }} {{ quoteCurrency }}</span>
+            </div>
+            <div class="result-line">
+              <span>Short Liquidation Price</span>
+              <span>{{ liqShort | number: '1.2-8' }} {{ quoteCurrency }}</span>
+            </div>
+        </div>
+    </div>
+</div>
