@@ -14,12 +14,12 @@
     <div class="input-group">
         <input type="number" placeholder="Entry Price" [(ngModel)]="entryPrice">
         <button class="get-price-btn" (click)="getPrice('entry')">Get</button>
-        <span class="unit">USDT</span>
+        <span class="unit">{{ quoteCurrency }}</span>
     </div>
 
     <div class="input-group">
         <input type="number" placeholder="Balance" [(ngModel)]="balance">
-        <span class="unit">%</span>
+        <span class="unit">USDT</span>
     </div>
 
     <button class="calculate-btn" (click)="calculateMaxOpen()">Calculate</button>
@@ -28,11 +28,11 @@
         <h3>Results</h3>
         <div class="result-line">
             <span>Max Open</span>
-            <span>{{ maxOpenUSDT }} USDT</span>
+            <span>{{ maxOpenUSDT }} {{ quoteCurrency }}</span>
         </div>
         <div class="result-line">
             <span>Max Open</span>
-            <span>{{ maxOpenBTC }} BTC</span>
+            <span>{{ maxOpenBTC }} {{baseCurrency}}</span>
         </div>
 
     </div>
