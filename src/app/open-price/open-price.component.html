@@ -1,1 +1,47 @@
-<p>open-price works!</p>
+<div class="openPrice-container">
+
+   
+    <div class="position-toggle">
+      <button [class.active-long]="isLong" (click)="selectPosition('long')">Long</button>
+      <button [class.active-short]="!isLong" (click)="selectPosition('short')">Short</button>
+    </div>
+  
+   
+    <div *ngFor="let position of positions; let i = index" class="position-entry">
+      <div class="input-block">
+        <label>Entry Price ({{ quoteCurrency }})</label>
+        <div class="input-group">
+          <input type="number" [(ngModel)]="position.entryPrice">
+          <button class="get-price-btn" (click)="getPrice('entry', i)">Get</button>
+          <span class="unit">{{ quoteCurrency }}</span>
+        </div>
+      </div>
+    
+      <div class="input-block">
+        <label>Quantity ({{ baseCurrency }})</label>
+        <div class="input-group">
+          <input type="number" [(ngModel)]="position.quantity">
+          <span class="unitBTC">{{ baseCurrency }}</span>
+        </div>
+      </div>
+    
+      <button class="delete-btn" (click)="removePosition(i)">🗑️</button>
+    </div>
+
+    <div class="add-position" (click)="addPosition()">
+      ➕ Add Position
+    </div>
+  
+
+    <button class="calculate-btn" (click)="calculateAverage()">Calculate</button>
+  
+    <div class="results" *ngIf="averagePrice !== null">
+      <h3>Results</h3>
+      <div class="result-line">
+        <span>Avg Price</span>
+        <span>{{ averagePrice }} USDT</span>
+      </div>
+    </div>
+  
+  </div>
+  
