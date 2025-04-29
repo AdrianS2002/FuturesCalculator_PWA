@@ -14,7 +14,7 @@
     <div class="input-group">
         <input type="number" placeholder="Entry Price" [(ngModel)]="entryPrice">
         <button class="get-price-btn" (click)="getPrice('entry')">Get</button>
-        <span class="unit">USDT</span>
+        <span class="unit">{{quoteCurrency}}</span>
     </div>
 
     <div class="input-group">
@@ -28,7 +28,7 @@
         <h3>Results</h3>
         <div class="result-line">
             <span>Target Price</span>
-            <span>{{ targetPrice }} USDT</span>
+            <span>{{ targetPrice }} {{quoteCurrency}}</span>
         </div>
 
     </div>
