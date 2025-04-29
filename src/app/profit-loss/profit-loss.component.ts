@@ -28,6 +28,14 @@ export class ProfitLossComponent {
     this.isLong = (position === 'long');
   }
 
+  get baseCurrency(): string {
+    return this.selectedPair?.substring(0, 3).toUpperCase() || '---';
+  }
+  
+  get quoteCurrency(): string {
+    return this.selectedPair?.substring(3).toUpperCase() || '---';
+  }
+
   getPrice(target: 'entry' | 'exit') {
     if (!this.selectedPair) return;
 

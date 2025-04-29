@@ -16,18 +16,18 @@
       <div class="input-group">
         <input type="number" placeholder="Entry Price" [(ngModel)]="entryPrice">
         <button class="get-price-btn" (click)="getPrice('entry')">Get</button>
-        <span class="unit">USDT</span>
+        <span class="unit">{{quoteCurrency}}</span>
       </div>
    
     <div class="input-group">
       <input type="number" placeholder="Exit Price" [(ngModel)]="exitPrice">
-      <span class="unit">USDT</span>
+      <span class="unit">{{quoteCurrency}}</span>
     </div>
   
   
     <div class="input-group">
       <input type="number" placeholder="Quantity" [(ngModel)]="quantity">
-      <span class="unit">BTC</span>
+      <span class="unit">{{baseCurrency}}</span>
     </div>
   
    
@@ -38,11 +38,11 @@
         <h3>Results</h3>
         <div class="result-line">
           <span>Initial Margin</span>
-          <span>{{ initialMargin }} USDT</span>
+          <span>{{ initialMargin }} {{quoteCurrency}}</span>
         </div>
         <div class="result-line">
           <span>PnL</span>
-          <span>{{ profitLoss }} USDT</span>
+          <span>{{ profitLoss }} {{quoteCurrency}}</span>
         </div>
         <div class="result-line">
           <span>ROI</span>
