@@ -20,6 +20,10 @@
             <button [class.active-short]="!isLong" (click)="selectPosition('short')">Short</button>
         </div>
 
+        <div class="notification" *ngIf="notificationMessage">
+            {{ notificationMessage }}
+          </div>
+
         <div class="position-block">
             <div class="input-group">
                 <input type="number" placeholder="Entry Price" [(ngModel)]="selectedEntry">

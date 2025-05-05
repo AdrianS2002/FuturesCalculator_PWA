@@ -1,7 +1,13 @@
 <div class="maxOpen-conteiner">
+
+
     <div class="position-toggle">
         <button [class.active-long]="isLong" (click)="selectPosition('long')">Long</button>
         <button [class.active-short]="!isLong" (click)="selectPosition('short')">Short</button>
+    </div>
+
+    <div class="notification" *ngIf="notificationMessage">
+        {{ notificationMessage }}
     </div>
 
 

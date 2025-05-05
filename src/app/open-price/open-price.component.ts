@@ -20,6 +20,16 @@ export class OpenPriceComponent {
 
   averagePrice: number | null = null;
 
+  notificationMessage: string | null = null;
+
+  showNotification(message: string) {
+    this.notificationMessage = message;
+    setTimeout(() => {
+      this.notificationMessage = null;
+    }, 3000);
+  }
+
+
   constructor(private pairPriceService: PairPriceService) { }
 
 
@@ -30,24 +40,41 @@ export class OpenPriceComponent {
   get baseCurrency(): string {
     return this.selectedPair?.substring(0, 3).toUpperCase() || '---';
   }
-  
+
   get quoteCurrency(): string {
     return this.selectedPair?.substring(3).toUpperCase() || '---';
   }
 
   getPrice(target: 'entry' | 'exit', index: number) {
     if (!this.selectedPair) return;
-
+  
+    const cacheKey = `price-${this.selectedPair}`;
+    const cached = localStorage.getItem(cacheKey);
+  
+    if (!navigator.onLine) {
+      if (cached) {
+        const price = parseFloat(cached);
+        this.positions[index].entryPrice = price;
+        this.showNotification(' You are offline. Price from local storage.');
+      } else {
+        this.showNotification(' You are offline. No data in local storage.');
+      }
+      return;
+    }
+  
     this.pairPriceService.getCurrentPrice(this.selectedPair).subscribe({
       next: (price) => {
-        if (target === 'entry') {
-          this.positions[index].entryPrice = price;
-          console.log('Entry Price:', price);
-        } 
+        localStorage.setItem(cacheKey, price.toString());
+        this.positions[index].entryPrice = price;
+        this.showNotification(' Price fetched from Binance API.');
       },
-      error: (error) => console.error('Error fetching price:', error)
+      error: (error) => {
+        console.error('Error fetching price:', error);
+        this.showNotification(' Failed to fetch price from API.');
+      }
     });
   }
+  
 
   addPosition() {
     this.positions.push({ entryPrice: 0, quantity: 0 });

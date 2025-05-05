@@ -24,6 +24,7 @@ export class LiquidationPriceComponent {
   balance!: number;
   liqLong: number | null = null;
   liqShort: number | null = null;
+  notificationMessage: string | null = null;
 
   mode: 'one-way' | 'hedge' = 'one-way';
   marginType = 'cross';
@@ -37,24 +38,29 @@ export class LiquidationPriceComponent {
 
   getPrice(target: 'entry' | 'exit') {
     if (!this.selectedPair) return;
+    const cacheKey = `price-${this.selectedPair}`;
+    const cached = localStorage.getItem(cacheKey);
 
-  this.pairPriceService.getCurrentPrice(this.selectedPair).subscribe({
-    next: (price) => {
-      if (target === 'entry') {
-        if (this.mode === 'hedge') {
-            this.longEntry = price;
-            this.shortEntry = price;
-         
-        } else {
-          this.selectedEntry = price;
-          
-        }
-      } else if (target === 'exit') {
-        this.exitPrice = price;
+    if (!navigator.onLine) {
+      if (cached) {
+        const price = parseFloat(cached);
+        this.showNotification(' You are offline. Price from local storage.');
+        this.setPrice(target, price);
+      } else {
+        this.showNotification(' You are offline. No data in local storage.');
       }
-      console.log('Fetched price:', price);
+      return;
+    }
+
+    this.pairPriceService.getCurrentPrice(this.selectedPair).subscribe({
+    next: (price) => {
+      localStorage.setItem(cacheKey, price.toString());
+      this.setPrice(target, price);
     },
-    error: (error) => console.error('Error fetching price:', error)
+    error: (error) => {
+      console.error('Error fetching price:', error);
+      this.showNotification('❌ Failed to fetch price from API.');
+    }
   });
   }
 
@@ -77,6 +83,26 @@ export class LiquidationPriceComponent {
     }
   }
 
+  showNotification(message: string) {
+    this.notificationMessage = message;
+    setTimeout(() => {
+      this.notificationMessage = null;
+    }, 3000);
+  }
+
+  private setPrice(target: 'entry' | 'exit', price: number) {
+    if (target === 'entry') {
+      if (this.mode === 'hedge') {
+        this.longEntry = price;
+        this.shortEntry = price;
+      } else {
+        this.selectedEntry = price;
+      }
+    } else if (target === 'exit') {
+      this.exitPrice = price;
+    }
+  }
+
   get selectedQuantity(): number {
     return this.isLong ? this.longQuantity : this.shortQuantity;
   }
@@ -92,14 +118,14 @@ export class LiquidationPriceComponent {
     if (this.mode === 'one-way') {
       const entry = this.selectedEntry;
       const qty = this.selectedQuantity;
-  
+
       if (!entry || !qty || !this.balance || !this.leverage) return;
-  
+
       const L = this.leverage;
       const Q = qty;
       const B = this.balance;
       const E = entry;
-  
+
       if (this.isLong) {
         const price = (E * (L / (L + 1))) - (B / (Q * (L + 1)));
         this.liquidationPrice = parseFloat(price.toFixed(8));
@@ -107,15 +133,15 @@ export class LiquidationPriceComponent {
         const price = (E * (L / (L + 1))) + (B / (Q * (L + 1)));
         this.liquidationPrice = parseFloat(price.toFixed(8));
       }
-    }  else if (this.mode === 'hedge') {
+    } else if (this.mode === 'hedge') {
       if (!this.longEntry || !this.longQuantity || !this.shortEntry || !this.shortQuantity || !this.balance || !this.leverage) return;
-  
+
       const L = this.leverage;
       const B = this.balance;
-  
+
       const longPrice = (this.longEntry * this.longQuantity * L) / (this.longQuantity * L + B);
       const shortPrice = (this.shortEntry * this.shortQuantity * L) / (this.shortQuantity * L - B);
-  
+
       this.liqLong = parseFloat(longPrice.toFixed(8));
       this.liqShort = parseFloat(shortPrice.toFixed(8));
       this.liquidationPrice = Math.max(this.liqLong, this.liqShort);

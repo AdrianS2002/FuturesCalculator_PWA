@@ -4,6 +4,10 @@
         <button [class.active-short]="!isLong" (click)="selectPosition('short')">Short</button>
     </div>
 
+    <div class="notification" *ngIf="notificationMessage">
+        {{ notificationMessage }}
+      </div>
+
 
     <div class="leverage-section">
         <label>Leverage: {{ leverage }}x</label>
