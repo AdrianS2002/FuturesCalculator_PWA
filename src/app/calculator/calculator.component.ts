@@ -7,11 +7,11 @@ import { OpenPriceComponent } from "../open-price/open-price.component";
 import { NgFor, NgIf } from '@angular/common';
 import { PairPriceService } from '../services/pairPrice.service';
 import { FormsModule } from '@angular/forms';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 @Component({
   selector: 'app-calculator',
   standalone: true,
-  imports: [ProfitLossComponent, TargetPriceComponent, LiquidationPriceComponent, MaxOpenComponent, OpenPriceComponent, NgIf, FormsModule, NgFor],
+  imports: [ProfitLossComponent, TargetPriceComponent, LiquidationPriceComponent, MaxOpenComponent, OpenPriceComponent, NgIf, FormsModule, NgFor, NgSelectModule],
   templateUrl: './calculator.component.html',
   styleUrl: './calculator.component.css'
 })

@@ -30,6 +30,17 @@
     color: #000;
 }
 
+.notification {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #333;
+    color: #ffd700;
+    border: 1px solid #ffd700;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+  }
+
 .position-toggle button.active-short {
     background-color: #e84142;
     color: #000;

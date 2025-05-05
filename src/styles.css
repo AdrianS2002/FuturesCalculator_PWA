@@ -72,6 +72,7 @@ body {
 .select-pair option {
     background-color: var(--background-color);
     color: var(--calculator-text-color);
+    border: 3px solid var(--border-color);
   }
 
   
