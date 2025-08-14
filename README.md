@@ -29,7 +29,7 @@ Inspired by professional platforms like **Binance Futures**.
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 - **Angular Standalone Components** (without classic Modules)
 - **RxJS** for asynchronous API calls
