@@ -1,4 +1,4 @@
-# 🚀 Crypto Futures Calculator
+#  Crypto Futures Calculator
 Live at :  https://futures-calculator-pwa.vercel.app/
 
 This project is an **Angular Standalone** application designed for fast and accurate calculation of:
@@ -14,7 +14,7 @@ Inspired by professional platforms like **Binance Futures**.
 
 ---
 
-## ✨ Current Features
+##  Current Features
 
 - Dynamic crypto pair selection via Binance API.
 - PnL calculation based on Entry Price, Exit Price, Quantity, and Leverage.
@@ -29,7 +29,7 @@ Inspired by professional platforms like **Binance Futures**.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
 - **Angular Standalone Components** (without classic Modules)
 - **RxJS** for asynchronous API calls
